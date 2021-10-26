@@ -1,18 +1,26 @@
 import React, { ChangeEvent, useState } from 'react';
+import { useAppDispatch, useTypedSelector } from '../../store';
+import { changeName, getPersons, changeCurrentPage } from '../../reducers/reducers';
 import './search-panel.scss';
 
-const SearchPanel = ({inputSearchChange}: Props): JSX.Element =>{
+const SearchPanel = (): JSX.Element => {
+
+  const name = useTypedSelector(state => state.characters.name);
+  const dispatch = useAppDispatch();
 
   const [searchValue, setSearchValue] = useState('');
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    inputSearchChange(searchValue);
+    // e.preventDefault();
+    // inputSearchChange(searchValue);
+    dispatch(changeCurrentPage('1'));
+    dispatch(getPersons());
   }
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const {value} = e.target;
-    setSearchValue(value);
+    // setSearchValue(value);
+    dispatch(changeName(value));
   };
 
   return (
@@ -22,7 +30,7 @@ const SearchPanel = ({inputSearchChange}: Props): JSX.Element =>{
           <i className="fas fa-search"></i>
           <input
             type="text"
-            value={searchValue}
+            value={name}
             onChange={handleChange}
             className="form-control search-input"
             placeholder="search" />

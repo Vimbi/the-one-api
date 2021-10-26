@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import { Action, configureStore, combineReducers } from '@reduxjs/toolkit';
 import { createStore, compose, applyMiddleware } from 'redux';
-import thunk from "redux-thunk";
+import thunk, { ThunkMiddleware } from "redux-thunk";
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 // eslint-disable-next-line import/no-cycle
 import { charactersSlice } from './reducers/reducers';
@@ -15,7 +15,7 @@ export type RootState = ReturnType<typeof COMBINED_REDUCER>;
 
 export const store = configureStore({
   reducer: COMBINED_REDUCER,
-  middleware: [thunk]
+  middleware: [thunk as ThunkMiddleware]
 })
 
 export type AppDispatch = typeof store.dispatch;

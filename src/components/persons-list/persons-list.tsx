@@ -3,6 +3,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 import Person from "../person/person";
+import SortComponent from "../sort-panel/sort-components";
 import './persons-list.scss';
 
 
@@ -20,7 +21,8 @@ const PersonsList = (): JSX.Element => {
       <table className="table table-striped">
         <tbody>
           <tr>
-            <th>Name</th>
+            <SortComponent>Name</SortComponent>
+            {/* <th>Name</th> */}
             <th>Birth</th>
             <th>Death</th>
             <th>Gender</th>

@@ -97,19 +97,19 @@ export const charactersSlice = createSlice({
 
 export const tryToChangeSort = createAsyncThunk(
   'changeSort',
-  async (sort: string, thunkAPI) => {
-    const state = thunkAPI.getState() as RootState;
+  async (sort: string, { dispatch, getState }) => {
+    const state = getState() as RootState;
 
     if(state.characters.sort === `${sort}:asc`) {
-      thunkAPI.dispatch(charactersSlice.actions.changeSort(`${sort}:desc`));
+      dispatch(charactersSlice.actions.changeSort(`${sort}:desc`));
     }
-    thunkAPI.dispatch(charactersSlice.actions.changeSort(`${sort}:asc`));
+    dispatch(charactersSlice.actions.changeSort(`${sort}:asc`));
   }
 )
 
 // const apiBase ='https://the-one-api.dev/v2';
 
-const getResource = async  (url: string): Promise<{
+const getResource = async (url: string): Promise<{
   docs: [],
   total: number,
   limit: number,
@@ -144,6 +144,16 @@ export const getPersons = createAsyncThunk(
     thunkAPI.dispatch(charactersSlice.actions.changeSpinnerVisible());
   }
 )
+
+export const {
+  changeName,
+  changeSpinnerVisible,
+  changeCurrentPage,
+  changeCharactersPerPage,
+  changeSort,
+  changeTotalPages,
+  changePersons,
+} = charactersSlice.actions;
 
 // const changeName = (
 //   state = initialState.name,

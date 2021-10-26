@@ -1,27 +1,31 @@
 import React, { ChangeEvent, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../store';
+import { RootState, useAppDispatch, useTypedSelector } from '../../store';
+import { changeCurrentPage, getPersons } from '../../reducers/reducers';
+// import { useSelector } from 'react-redux';
+// import { RootState } from '../../store';
 import './pagination.scss';
 
-const Pagination = ({pageNumberChange}: Props): JSX.Element =>{
+const Pagination = (): JSX.Element =>{
 
-  const [currentPage, setCurrentPage] = useState('1');
-
-  const pagesNumber = useSelector((state: RootState) => state.pagesNumber)
+  // const [currentPage, setCurrentPage] = useState('1');
+  const dispatch = useAppDispatch();
+  const { currentPage, totalPages } = useTypedSelector((state: RootState) => state.characters)
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    pageNumberChange(currentPage);
+    // pageNumberChange(currentPage);
+    dispatch(getPersons());
   }
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     let {value} = e.target;
     if (+value < 1) {
       value = '1';
-    } else if (+value > +pagesNumber) {
-      value = pagesNumber;
+    } else if (+value > +totalPages) {
+      value = totalPages;
     }
-    setCurrentPage(value);
+    // setCurrentPage(value);
+    dispatch(changeCurrentPage(value));
   };
 
   return (
@@ -36,7 +40,7 @@ const Pagination = ({pageNumberChange}: Props): JSX.Element =>{
             className="form-control pages-amount" />
           <div className="input-group-append">
             <span className="input-group-text">/</span>
-            <span className="input-group-text">{pagesNumber}</span>
+            <span className="input-group-text">{totalPages}</span>
           </div>
         </div>
         <button type="submit" className="btn btn-primary mb-2">Go</button>

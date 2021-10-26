@@ -9,7 +9,7 @@ import Home from '../home/home';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import PersonDetails from '../person-details/person-details';
 import './app.scss';
-import store from "../../store";
+import { store } from "../../store";
 
 const App = (): JSX.Element => {
 

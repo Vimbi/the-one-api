@@ -1,17 +1,29 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, useEffect } from 'react';
+import { useAppDispatch, useTypedSelector } from '../../store';
+import { changeCharactersPerPage, getPersons } from '../../reducers/reducers';
 import './characters-amount.scss';
 
-const CharactersAmount = ({charactersAmountChange, charactersAmount}: Props): JSX.Element =>{
+const CharactersAmount = (): JSX.Element =>{
+
+  const charactersPerPage = useTypedSelector(state => state.characters.charactersPerPage);
+  const dispatch = useAppDispatch();
 
   const onAmountChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const {value} = e.target;
-    charactersAmountChange(value);
+    // charactersAmountChange(value);
+    dispatch(changeCharactersPerPage(value));
   };
+
+  useEffect(() => {
+
+    dispatch(getPersons());
+
+  }, [charactersPerPage]);
 
   return (
     <div className="characters-amount__wrapper">
       <div className="form-group">
-        <select className="custom-select" name="select" onChange={onAmountChange} value={charactersAmount}
+        <select className="custom-select" name="select" onChange={onAmountChange} value={charactersPerPage}
           required>
           <option value="">Characters per page</option>
           <option value="10">10 Characters per page</option>
