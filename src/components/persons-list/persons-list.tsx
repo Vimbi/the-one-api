@@ -3,7 +3,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 import Person from "../person/person";
-import SortComponent from "../sort-panel/sort-components";
+import TableHeaderCell from "../sort-panel/table-header-cell";
 import './persons-list.scss';
 
 
@@ -18,20 +18,21 @@ const PersonsList = (): JSX.Element => {
 
   return (
     <div className="table-responsive-xl">
-      <table className="table table-striped">
-        <tbody>
+      <table className="table table-hover">
+        <thead>
           <tr>
-            <SortComponent>Name</SortComponent>
-            {/* <th>Name</th> */}
-            <th>Birth</th>
-            <th>Death</th>
-            <th>Gender</th>
-            <th>Hair</th>
-            <th>Height</th>
-            <th>Race</th>
-            <th>Realm</th>
-            <th>Spouse</th>
+            <TableHeaderCell>Name</TableHeaderCell>
+            <TableHeaderCell>Birth</TableHeaderCell>
+            <TableHeaderCell>Death</TableHeaderCell>
+            <TableHeaderCell>Gender</TableHeaderCell>
+            <TableHeaderCell>Hair</TableHeaderCell>
+            <TableHeaderCell>Height</TableHeaderCell>
+            <TableHeaderCell>Race</TableHeaderCell>
+            <TableHeaderCell>Realm</TableHeaderCell>
+            <TableHeaderCell>Spouse</TableHeaderCell>
           </tr>
+        </thead>
+        <tbody>
           {personsList}
         </tbody>
       </table>

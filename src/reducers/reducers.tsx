@@ -1,6 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { combineReducers } from 'redux';
-import thunk from 'redux-thunk';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 // eslint-disable-next-line import/no-cycle
 import { RootState } from '../store';
 
@@ -97,13 +95,13 @@ export const charactersSlice = createSlice({
 
 export const tryToChangeSort = createAsyncThunk(
   'changeSort',
-  async (sort: string, { dispatch, getState }) => {
+  async (sort: string, { getState, dispatch }) => {
     const state = getState() as RootState;
-
     if(state.characters.sort === `${sort}:asc`) {
       dispatch(charactersSlice.actions.changeSort(`${sort}:desc`));
+    } else {
+      dispatch(charactersSlice.actions.changeSort(`${sort}:asc`));
     }
-    dispatch(charactersSlice.actions.changeSort(`${sort}:asc`));
   }
 )
 
@@ -135,7 +133,6 @@ export const getPersons = createAsyncThunk(
   async (args, thunkAPI) => {
     const state = thunkAPI.getState() as RootState;
     const { name, currentPage, charactersPerPage, sort} = state.characters;
-
     thunkAPI.dispatch(charactersSlice.actions.changeSpinnerVisible());
     const res = await getResource
     (`/character?page=${currentPage}&limit=${charactersPerPage}&sort=${sort}&name=/${name}/i`);

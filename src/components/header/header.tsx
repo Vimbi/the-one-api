@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import './header.scss';
 
 const Header = (): JSX.Element => (
-  <header data-tetsid="test-header">
+  <header data-testid="test-header">
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
       <div className="collapse navbar-collapse" id="navbarNav">
         <ul className="navbar-nav">

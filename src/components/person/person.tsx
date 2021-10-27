@@ -13,7 +13,7 @@ const Person = ({person, history}: Props): JSX.Element => {
 
   return (
     <tr className="person-row" onClick={onHandleClick}>
-      <th >{name}</th>
+      <th>{name}</th>
       <td>{birth}</td>
       <td>{death}</td>
       <td>{gender}</td>

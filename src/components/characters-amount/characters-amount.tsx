@@ -1,6 +1,6 @@
-import React, { ChangeEvent, useEffect } from 'react';
+import React, { ChangeEvent } from 'react';
 import { useAppDispatch, useTypedSelector } from '../../store';
-import { changeCharactersPerPage, getPersons } from '../../reducers/reducers';
+import { changeCharactersPerPage } from '../../reducers/reducers';
 import './characters-amount.scss';
 
 const CharactersAmount = (): JSX.Element =>{
@@ -10,15 +10,8 @@ const CharactersAmount = (): JSX.Element =>{
 
   const onAmountChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const {value} = e.target;
-    // charactersAmountChange(value);
     dispatch(changeCharactersPerPage(value));
   };
-
-  useEffect(() => {
-
-    dispatch(getPersons());
-
-  }, [charactersPerPage]);
 
   return (
     <div className="characters-amount__wrapper">
@@ -33,11 +26,6 @@ const CharactersAmount = (): JSX.Element =>{
       </div>
     </div>
   )
-}
-
-interface Props {
-  charactersAmountChange: (value: string) => void,
-  charactersAmount: string
 }
 
 export default CharactersAmount;
