@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 // eslint-disable-next-line import/no-cycle
 import { RootState } from '../store';
+import { Person } from '../../types/person';
 
 const initialState = {
   name: '',
@@ -89,6 +90,9 @@ export const charactersSlice = createSlice({
     },
     changePersons(state, action) {
       state.persons = action.payload;
+    },
+    changePerson(state, action) {
+      state.person = action.payload;
     }
   }
 })
@@ -142,6 +146,39 @@ export const getPersons = createAsyncThunk(
   }
 )
 
+const transformPerson = (personArray: Person[]) => {
+  const {birth,
+    death,
+    gender,
+    hair,
+    height,
+    name,
+    race,
+    realm,
+    spouse,
+    _id: id} = personArray[0];
+  return {birth,
+    death,
+    gender,
+    hair,
+    height,
+    name,
+    race,
+    realm,
+    spouse,
+    id}
+}
+
+export const getPerson = createAsyncThunk(
+  'getPersons',
+  async (id: string, thunkAPI) => {
+    thunkAPI.dispatch(charactersSlice.actions.changeSpinnerVisible());
+    const res = await getResource(`/character/${id}`);
+    thunkAPI.dispatch(charactersSlice.actions.changePerson(transformPerson(res.docs)));
+    thunkAPI.dispatch(charactersSlice.actions.changeSpinnerVisible());
+  }
+);
+
 export const {
   changeName,
   changeSpinnerVisible,
@@ -151,52 +188,6 @@ export const {
   changeTotalPages,
   changePersons,
 } = charactersSlice.actions;
-
-// const changeName = (
-//   state = initialState.name,
-//   action: PayloadAction<string>) => {
-//   switch (action.type) {
-//     case 'CHANGE_NAME':
-//       return action.payload;
-//     default:
-//       return state;
-//   }
-// }
-
-// const getPersons = (
-//   state = initialState.persons,
-//   action: PayloadAction<{
-//     birth: string;
-//     death: string;
-//     gender: string;
-//     hair: string;
-//     height: string;
-//     name: string;
-//     race: string;
-//     realm: string;
-//     spouse: string;
-//     wikiUrl: string;
-//     _id: string;
-//   }[]>): {
-//   birth: string;
-//   death: string;
-//   gender: string;
-//   hair: string;
-//   height: string;
-//   name: string;
-//   race: string;
-//   realm: string;
-//   spouse: string;
-//   wikiUrl: string;
-//   _id: string;
-// }[] => {
-//   switch (action.type) {
-//     case 'GET_PERSONS':
-//       return action.payload;
-//     default:
-//       return state;
-//   }
-// }
 
 // const getPerson = (
 //   state = initialState.person,
@@ -233,40 +224,3 @@ export const {
 //       return state;
 //   }
 // }
-
-// const loading = (
-//   state = initialState.loading,
-//   action: PayloadAction<boolean>
-// ) => {
-//   switch (action.type) {
-//     case 'SHOW_LOADER':
-//       return !state
-//     case 'HIDE_LOADER':
-//       return !state
-//     default:
-//       return state;
-//   }
-// }
-
-// const getTotalPages = (
-//   state = initialState.totalPages,
-//   action: PayloadAction<string>
-// ): string => {
-//   switch (action.type) {
-//     case 'CHANGE_PAGES_NUMBER':
-//       return action.payload
-//     default:
-//       return state;
-//   }
-// }
-
-// const rootReducer = combineReducers({
-//   getPersons,
-//   getPerson,
-//   loading,
-//   getTotalPages,
-// })
-
-// export default rootReducer;
-
-// export type InitialState = typeof initialState;

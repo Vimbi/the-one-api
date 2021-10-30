@@ -4,9 +4,9 @@ import SearchPanel from '../search-panel/search-panel';
 import PersonsList from '../persons-list/persons-list';
 import CharactersAmount from '../characters-amount/characters-amount';
 import Pagination from '../pagination/pagination';
-import { RootState, useTypedSelector, useAppDispatch } from '../../store';
+import { RootState, useTypedSelector, useAppDispatch } from '../../redux/store';
 import Spinner from '../spinner/spinner';
-import { getPersons } from '../../reducers/reducers';
+import { getPersons } from '../../redux/slices/characters';
 
 const Home = (): JSX.Element => {
 

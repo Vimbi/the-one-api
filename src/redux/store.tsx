@@ -1,11 +1,9 @@
 /* eslint-disable no-underscore-dangle */
-import { Action, configureStore, combineReducers } from '@reduxjs/toolkit';
-import { createStore, compose, applyMiddleware } from 'redux';
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import thunk, { ThunkMiddleware } from "redux-thunk";
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 // eslint-disable-next-line import/no-cycle
-import { charactersSlice } from './reducers/reducers';
-// import rootReducer from './reducers/reducers';
+import { charactersSlice } from './slices/characters';
 
 export const COMBINED_REDUCER = combineReducers({
   characters: charactersSlice.reducer,

@@ -1,16 +1,16 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getPerson } from "../../actions/actions";
-import { RootState } from "../../store";
+import { RootState, useTypedSelector, useAppDispatch } from "../../redux/store";
+// import { getPerson } from "../../actions/actions";
+import { getPerson } from "../../redux/slices/characters";
 import Spinner from "../spinner/spinner";
 import './person-details.scss';
 
-const PersonDetails = ({selectedId}: Props): JSX.Element =>{
+const PersonDetails = ({ selectedId }: { selectedId :string }): JSX.Element =>{
 
-  const dispatch = useDispatch();
-  const person = useSelector((state: RootState) => state.person)
+  const dispatch = useAppDispatch();
+  const person = useTypedSelector((state: RootState) => state.characters.person)
 
-  const loading = useSelector((state: RootState) => state.loading);
+  const loading = useTypedSelector((state: RootState) => state.characters.spinnerVisible);
 
 
   useEffect(() => {
@@ -40,10 +40,6 @@ const PersonDetails = ({selectedId}: Props): JSX.Element =>{
       </div>
     </div>
   )
-}
-
-interface Props {
-  selectedId: string
 }
 
 export default PersonDetails;

@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from 'react';
-import { useAppDispatch, useTypedSelector } from '../../store';
-import { changeName, getPersons, changeCurrentPage } from '../../reducers/reducers';
+import { useAppDispatch, useTypedSelector } from '../../redux/store';
+import { changeName, getPersons, changeCurrentPage } from '../../redux/slices/characters';
 import './search-panel.scss';
 
 const SearchPanel = (): JSX.Element => {

@@ -1,6 +1,6 @@
 import React from 'react';
-import { useAppDispatch } from '../../store';
-import { tryToChangeSort } from '../../reducers/reducers';
+import { useAppDispatch } from '../../redux/store';
+import { tryToChangeSort } from '../../redux/slices/characters';
 import './table-header-cell.scss';
 
 const TableHeaderCell = ({ children }: { children : string }): JSX.Element => {

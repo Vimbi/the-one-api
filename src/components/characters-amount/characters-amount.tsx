@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from 'react';
-import { useAppDispatch, useTypedSelector } from '../../store';
-import { changeCharactersPerPage } from '../../reducers/reducers';
+import { useAppDispatch, useTypedSelector } from '../../redux/store';
+import { changeCharactersPerPage } from '../../redux/slices/characters';
 import './characters-amount.scss';
 
 const CharactersAmount = (): JSX.Element =>{

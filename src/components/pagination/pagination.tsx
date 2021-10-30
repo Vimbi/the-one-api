@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useState } from 'react';
-import { RootState, useAppDispatch, useTypedSelector } from '../../store';
-import { changeCurrentPage, getPersons } from '../../reducers/reducers';
+import { RootState, useAppDispatch, useTypedSelector } from '../../redux/store';
+import { changeCurrentPage, getPersons } from '../../redux/slices/characters';
 // import { useSelector } from 'react-redux';
 // import { RootState } from '../../store';
 import './pagination.scss';
