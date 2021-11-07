@@ -109,7 +109,7 @@ export const tryToChangeSort = createAsyncThunk(
   }
 )
 
-// const apiBase ='https://the-one-api.dev/v2';
+const apiBase ='https://the-one-api.dev/v2';
 
 const getResource = async (url: string): Promise<{
   docs: [],

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Route, Switch, HashRouter } from 'react-router-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
@@ -10,6 +9,7 @@ import PageNotFound from '../PageNotFound/PageNotFound';
 import PersonDetails from '../person-details/person-details';
 import './app.scss';
 import { store } from "../../redux/store";
+import ErrorBoundary from '../error-boundry/error-boundry';
 
 const App = (): JSX.Element => {
 
@@ -20,37 +20,39 @@ const App = (): JSX.Element => {
 
   return (
     <div className="app" data-testid="test-div__app">
-      <Provider store={store}>
-        <HashRouter basename='/'>
-          <Header />
-          <TransitionGroup>
-            <Switch>
-              {routes.map(({ path, Component }) => (
-                <Route key={path} exact path={path}>
-                  {({ match }) => (
-                    <CSSTransition
-                      in={match != null}
-                      timeout={300}
-                      classNames="page"
-                      unmountOnExit
-                    >
-                      <div className="page">
-                        <Component />
-                      </div>
-                    </CSSTransition>
-                  )}
-                </Route>
-              ))}
-              <Route path="/details/:id"
-                render = {({match}) => {
-                  const {id} = match.params;
-                  return <PersonDetails selectedId={id} />
-                }} />
-              <Route component={PageNotFound} />
-            </Switch>
-          </TransitionGroup>
-        </HashRouter>
-      </Provider>
+      <ErrorBoundary>
+        <Provider store={store}>
+          <HashRouter basename='/'>
+            <Header />
+            <TransitionGroup>
+              <Switch>
+                {routes.map(({ path, Component }) => (
+                  <Route key={path} exact path={path}>
+                    {({ match }) => (
+                      <CSSTransition
+                        in={match != null}
+                        timeout={300}
+                        classNames="page"
+                        unmountOnExit
+                      >
+                        <div className="page">
+                          <Component />
+                        </div>
+                      </CSSTransition>
+                    )}
+                  </Route>
+                ))}
+                <Route path="/details/:id"
+                  render = {({match}) => {
+                    const {id} = match.params;
+                    return <PersonDetails selectedId={id} />
+                  }} />
+                <Route component={PageNotFound} />
+              </Switch>
+            </TransitionGroup>
+          </HashRouter>
+        </Provider>
+      </ErrorBoundary>
     </div>
   )
 }
